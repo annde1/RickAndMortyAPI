@@ -22,13 +22,11 @@ const myPromise2 = () => {
 };
 
 const getImages = (res) => {
-  //if the promise success then the result will be in myValue
   let charObj = JSON.parse(res);
   apiAddress = charObj.info.next;
   for (let i = 0; i < charObj.results.length; i++) {
     let body = document.querySelector("body");
     let img = document.createElement("img");
-    //console.log(item.image);
     img.setAttribute("src", charObj.results[i].image);
     img.style.display = "block";
     //setting width and height to images because the image tags are created before th images are brought and the empty image tags are intersecting with the viewport
@@ -38,14 +36,13 @@ const getImages = (res) => {
   }
 };
 const myFunc = async () => {
-  //async mean that there will be promise in this function
   try {
     let res = await myPromise2(); //
     getImages(res);
     //options object for intersection observer api
     let opts = {
       root: null, //null because I want the last image to intersect with the viewport
-      threshhold: 0.5, //around 50
+      threshhold: 0.5, //around 50%
     };
     const observerCallback = (entries, observer) => {
       // console.log(entries);
@@ -71,7 +68,6 @@ const myFunc = async () => {
     //observe the last picture.
     observer.observe(lastElement);
   } catch (err) {
-    //if promise fail then it will go to catch and will put the error msg to err
     console.log("err", err);
   }
 };
