@@ -23,6 +23,7 @@ const myPromise2 = () => {
 
 const getImages = (res) => {
   let charObj = JSON.parse(res);
+  //Go to the next API
   apiAddress = charObj.info.next;
   for (let i = 0; i < charObj.results.length; i++) {
     let body = document.querySelector("body");
@@ -44,9 +45,10 @@ const myFunc = async () => {
       root: null, //null because I want the last image to intersect with the viewport
       threshhold: 0.5, //around 50%
     };
+    //the execution of this call back function is synchronous
     const observerCallback = (entries, observer) => {
       // console.log(entries);
-      //checking if the target element is instersecting or not
+      //checking if the target element is instersecting or not (entries ar an array)
       let isIntersecting = entries.some((entry) => entry.isIntersecting);
 
       //if it's not intersecting no need to run the funcion
@@ -54,7 +56,6 @@ const myFunc = async () => {
         return;
       }
 
-      //the execution of the callback is synchronous (the inside of it)
       //we want to delete the previous observer (there can only be one observer)
       entries.forEach((entry) => observer.unobserve(entry.target));
       //bring more images
